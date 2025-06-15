@@ -75,7 +75,7 @@ class Chip8 {
     @OptIn(ExperimentalUnsignedTypes::class, ExperimentalStdlibApi::class)
     fun decode(instruction : Int, registers: Registers, memory: Memory) {
 
-        val head = (instruction and 0xF000) shr 12;
+        val head = (instruction and 0xF000) shr 12
         val midhead = (instruction and 0x0F00) shr 8
         val midtail = (instruction and 0x00F0) shr 4
         val tail = (instruction and 0x000F)
@@ -189,12 +189,12 @@ class Chip8 {
                         registers.registersMap["v${midhead.hexToChar()}"]?.value = (first shl 1).toUByte()
                     }
                 }
-            };
+            }
             0x9 -> {
                 if (registers.registersMap["v${midhead.hexToChar()}"]?.value != registers.registersMap["v${midtail.hexToChar()}"]?.value) {
                     memory.skipInstruction()
                 }
-            };
+            }
             0xA -> {
                 memory.indexRegister = (instruction and 0xFFF).toUShort()
             }
@@ -204,14 +204,14 @@ class Chip8 {
                     memory.programCounter = ((instruction and 0x0FFF).toUShort() + value).toUShort()
                 }
 
-            };
+            }
             0xC -> {
                 val random = Random.nextUBytes(1)
                 val value = (instruction and 0x00FF)
 
                 registers.registersMap["v${midhead.hexToChar()}"]?.value = (random[0].toInt() and value).toUByte()
 
-            };
+            }
             0xD -> {
                 val x = registers.registersMap["v${midhead.hexToChar()}"]?.value?.rem(64u)
                 val y = registers.registersMap["v${midtail.hexToChar()}"]?.value?.rem(32u)

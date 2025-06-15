@@ -3,7 +3,6 @@ package org.emu.dev
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import kotlinx.coroutines.*
 
 class Timer {
     var value by mutableStateOf(0)
